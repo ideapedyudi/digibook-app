@@ -13,6 +13,10 @@ const searchInput = document.getElementById('searchInput');
 const categorySelect = document.getElementById('categorySelect');
 const bookGrid = document.getElementById('bookGrid');
 const resultInfo = document.getElementById('resultInfo');
+const pagination = document.getElementById('pagination');
+
+const itemsPerPage = 20;
+let currentPage = 1;
 
 function formatRupiah(number) {
   return 'Rp ' + number.toLocaleString('id-ID');
@@ -21,17 +25,45 @@ function formatRupiah(number) {
 function bookCard(book) {
   return `
     <article class="book-card">
-      <div class="book-cover">
-        <img src="${book.cover}" alt="${book.title}">
+      <div class="book-header">
+        <div class="book-cover">
+          <img src="${book.cover}" alt="${book.title}">
+        </div>
       </div>
-      <div class="book-body">
+      <div class="book-content">
         <h3 class="book-title">${book.title}</h3>
-        <p class="book-author">Penulis: ${book.author}</p>
+        <p class="book-author">${book.author}</p>
         <p class="book-category">Kategori: ${book.categoryLabel}</p>
-        <p class="book-price">${formatRupiah(book.price)}</p>
+        <div class="book-footer">
+          <p class="book-price">${formatRupiah(book.price)}</p>
+          <a href="detail.html" class="detail-btn">Detail</a>
+        </div>
       </div>
     </article>
   `;
+}
+
+function renderPagination(totalItems) {
+  const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+
+  if (totalItems <= itemsPerPage) {
+    pagination.innerHTML = '';
+    return;
+  }
+
+  let buttons = '';
+  for (let page = 1; page <= totalPages; page += 1) {
+    buttons += `<button class="page-btn ${page === currentPage ? 'active' : ''}" data-page="${page}" type="button">${page}</button>`;
+  }
+
+  pagination.innerHTML = buttons;
+  pagination.querySelectorAll('.page-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      currentPage = Number(btn.dataset.page);
+      renderBooks();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
 }
 
 function renderBooks() {
@@ -44,17 +76,34 @@ function renderBooks() {
     return matchCategory && matchSearch;
   });
 
-  resultInfo.textContent = `${filtered.length} buku ditemukan`;
+  const totalItems = filtered.length;
+  const totalPages = Math.max(1, Math.ceil(totalItems / itemsPerPage));
+  if (currentPage > totalPages) currentPage = 1;
 
-  if (filtered.length === 0) {
+  const start = (currentPage - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  const paginatedBooks = filtered.slice(start, end);
+
+  resultInfo.textContent = `${totalItems} buku ditemukan · Halaman ${currentPage}/${totalPages} · Maks ${itemsPerPage} buku/halaman`;
+
+  if (totalItems === 0) {
     bookGrid.innerHTML = '<div class="empty-state">Buku tidak ditemukan. Coba kata kunci atau kategori lain.</div>';
+    pagination.innerHTML = '';
     return;
   }
 
-  bookGrid.innerHTML = filtered.map(bookCard).join('');
+  bookGrid.innerHTML = paginatedBooks.map(bookCard).join('');
+  renderPagination(totalItems);
 }
 
-searchInput.addEventListener('input', renderBooks);
-categorySelect.addEventListener('change', renderBooks);
+searchInput.addEventListener('input', () => {
+  currentPage = 1;
+  renderBooks();
+});
+
+categorySelect.addEventListener('change', () => {
+  currentPage = 1;
+  renderBooks();
+});
 
 renderBooks();
