@@ -106,8 +106,46 @@
     color: var(--primary-color) !important;
 }
 
+.auth-links .btn {
+    border-radius: 12px !important;
+    font-weight: 700 !important;
+    padding: 7px 14px !important;
+    transition: all 0.25s ease !important;
+}
+
+.auth-links .btn-login {
+    color: #fff !important;
+    border: 1px solid var(--primary-color) !important;
+    background: linear-gradient(135deg, #3d2b87, var(--primary-color)) !important;
+    box-shadow: 0 6px 16px rgba(46, 36, 91, 0.25) !important;
+}
+
+.auth-links .btn-login:hover {
+    color: var(--primary-color) !important;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue)) !important;
+    border-color: rgba(46, 36, 91, 0.25) !important;
+    transform: translateY(-2px) !important;
+}
+
+.auth-links .btn-register {
+    color: var(--primary-color) !important;
+    border: 1px solid rgba(46, 36, 91, 0.28) !important;
+    background: rgba(224, 195, 252, 0.12) !important;
+}
+
+.auth-links .btn-register:hover {
+    color: #fff !important;
+    border-color: var(--primary-color) !important;
+    background: var(--primary-color) !important;
+    transform: translateY(-2px) !important;
+}
+
 @media (max-width: 991px) {
     .searchbar {
         margin: 1rem 0 !important;
+    }
+
+    .auth-links {
+        margin-top: 0.8rem !important;
     }
 }
