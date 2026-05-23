@@ -35,12 +35,28 @@
               <th>Aksi</th>
             </tr>
           </thead>
-          <tbody id="userTableBody"></tbody>
+          <tbody id="userTableBody">
+            <tr><td>Admin Utama</td><td>admin@galaxybook.id</td><td>Admin</td><td><span class="badge success">Aktif</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+            <tr><td>Dina Kurnia</td><td>dina@galaxybook.id</td><td>Staff</td><td><span class="badge success">Aktif</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+            <tr><td>Rafi Maulana</td><td>rafi@galaxybook.id</td><td>Staff</td><td><span class="badge warning">Suspend</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+            <tr><td>Sinta Aulia</td><td>sinta@galaxybook.id</td><td>Staff</td><td><span class="badge success">Aktif</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+            <tr><td>Bagas Pratama</td><td>bagas@galaxybook.id</td><td>Staff</td><td><span class="badge success">Aktif</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+            <tr><td>Nadia Putri</td><td>nadia@galaxybook.id</td><td>Staff</td><td><span class="badge success">Aktif</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+            <tr><td>Andi Rahman</td><td>andi@galaxybook.id</td><td>Staff</td><td><span class="badge warning">Suspend</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+            <tr><td>Lia Ramadhani</td><td>lia@galaxybook.id</td><td>Staff</td><td><span class="badge success">Aktif</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+            <tr><td>Reno Saputra</td><td>reno@galaxybook.id</td><td>Staff</td><td><span class="badge success">Aktif</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+            <tr><td>Tia Lestari</td><td>tia@galaxybook.id</td><td>Staff</td><td><span class="badge success">Aktif</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+            <tr><td>Yusuf Hamka</td><td>yusuf@galaxybook.id</td><td>Staff</td><td><span class="badge success">Aktif</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+            <tr><td>Citra Nabila</td><td>citra@galaxybook.id</td><td>Staff</td><td><span class="badge warning">Suspend</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+            <tr><td>Farhan Hakim</td><td>farhan@galaxybook.id</td><td>Staff</td><td><span class="badge success">Aktif</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+            <tr><td>Mila Handayani</td><td>mila@galaxybook.id</td><td>Staff</td><td><span class="badge success">Aktif</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+            <tr><td>Raka Aditya</td><td>raka@galaxybook.id</td><td>Staff</td><td><span class="badge success">Aktif</span></td><td><div class="actions"><button class="btn btn-soft" type="button" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button><button class="btn btn-danger btn-delete" type="button">Hapus</button></div></td></tr>
+          </tbody>
         </table>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px;">
           <p id="userPaginationInfo" style="margin:0;color:var(--text-muted);"></p>
           <nav aria-label="User pagination">
-            <ul class="pagination pagination-sm mb-0" id="userPagination">
+            <ul class="pagination pagination-sm mb-0">
               <li class="page-item" id="userPrevItem"><button class="page-link" id="userPrevBtn" type="button">Previous</button></li>
               <li class="page-item disabled"><span class="page-link" id="userPageLabel">1</span></li>
               <li class="page-item" id="userNextItem"><button class="page-link" id="userNextBtn" type="button">Next</button></li>
@@ -60,15 +76,15 @@
         </div>
         <div class="modal-body">
           <form class="form-grid">
-            <div class="field"><label>Nama Lengkap</label><input type="text" id="createNama" value="Nadia Putri"></div>
-            <div class="field"><label>Email</label><input type="email" id="createEmail" value="nadia@galaxybook.id"></div>
-            <div class="field"><label>Role</label><select id="createRole"><option>Admin</option><option selected>Staff</option></select></div>
-            <div class="field"><label>Status</label><select id="createStatus"><option selected>Aktif</option><option>Suspend</option></select></div>
+            <div class="field"><label>Nama Lengkap</label><input type="text"></div>
+            <div class="field"><label>Email</label><input type="email"></div>
+            <div class="field"><label>Role</label><select><option>Admin</option><option>Staff</option></select></div>
+            <div class="field"><label>Status</label><select><option>Aktif</option><option>Suspend</option></select></div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-soft" data-bs-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-primary" id="saveCreateUser">Simpan</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Simpan</button>
         </div>
       </div>
     </div>
@@ -83,16 +99,15 @@
         </div>
         <div class="modal-body">
           <form class="form-grid">
-            <input type="hidden" id="editRefEmail">
-            <div class="field"><label>Nama Lengkap</label><input type="text" id="editNama"></div>
-            <div class="field"><label>Email</label><input type="email" id="editEmail"></div>
-            <div class="field"><label>Role</label><select id="editRole"><option>Admin</option><option>Staff</option></select></div>
-            <div class="field"><label>Status</label><select id="editStatus"><option>Aktif</option><option>Suspend</option></select></div>
+            <div class="field"><label>Nama Lengkap</label><input type="text"></div>
+            <div class="field"><label>Email</label><input type="email"></div>
+            <div class="field"><label>Role</label><select><option>Admin</option><option>Staff</option></select></div>
+            <div class="field"><label>Status</label><select><option>Aktif</option><option>Suspend</option></select></div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-soft" data-bs-dismiss="modal">Tutup</button>
-          <button type="button" class="btn btn-primary" id="saveEditUser">Update</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Update</button>
         </div>
       </div>
     </div>
@@ -102,139 +117,67 @@
   <script src="../../assets/script/admin/shared-layout.js"></script>
   <script>
     (function () {
-      const pageSize = 10;
+      const pageSize = 5;
       let currentPage = 1;
-      const userData = [
-        { nama: "Admin Utama", email: "admin@galaxybook.id", role: "Admin", status: "Aktif" },
-        { nama: "Dina Kurnia", email: "dina@galaxybook.id", role: "Staff", status: "Aktif" },
-        { nama: "Rafi Maulana", email: "rafi@galaxybook.id", role: "Staff", status: "Suspend" },
-        { nama: "Sinta Aulia", email: "sinta@galaxybook.id", role: "Staff", status: "Aktif" },
-        { nama: "Bagas Pratama", email: "bagas@galaxybook.id", role: "Staff", status: "Aktif" },
-        { nama: "Nadia Putri", email: "nadia@galaxybook.id", role: "Staff", status: "Aktif" },
-        { nama: "Andi Rahman", email: "andi@galaxybook.id", role: "Staff", status: "Suspend" },
-        { nama: "Lia Ramadhani", email: "lia@galaxybook.id", role: "Staff", status: "Aktif" },
-        { nama: "Reno Saputra", email: "reno@galaxybook.id", role: "Staff", status: "Aktif" },
-        { nama: "Tia Lestari", email: "tia@galaxybook.id", role: "Staff", status: "Aktif" },
-        { nama: "Yusuf Hamka", email: "yusuf@galaxybook.id", role: "Staff", status: "Aktif" },
-        { nama: "Citra Nabila", email: "citra@galaxybook.id", role: "Staff", status: "Suspend" },
-        { nama: "Farhan Hakim", email: "farhan@galaxybook.id", role: "Staff", status: "Aktif" },
-        { nama: "Mila Handayani", email: "mila@galaxybook.id", role: "Staff", status: "Aktif" },
-        { nama: "Raka Aditya", email: "raka@galaxybook.id", role: "Staff", status: "Aktif" }
-      ];
-
-      const tableBody = document.getElementById("userTableBody");
+      const body = document.getElementById("userTableBody");
       const info = document.getElementById("userPaginationInfo");
-      const pageLabel = document.getElementById("userPageLabel");
+      const label = document.getElementById("userPageLabel");
       const prevBtn = document.getElementById("userPrevBtn");
       const nextBtn = document.getElementById("userNextBtn");
       const prevItem = document.getElementById("userPrevItem");
       const nextItem = document.getElementById("userNextItem");
-      const editModal = new bootstrap.Modal(document.getElementById("editUserModal"));
 
-      function statusBadge(statusText) {
-        const cls = statusText === "Aktif" ? "success" : "warning";
-        return '<span class="badge ' + cls + '">' + statusText + "</span>";
+      function rows() {
+        return Array.from(body.querySelectorAll("tr"));
       }
 
       function pageCount() {
-        return Math.max(1, Math.ceil(userData.length / pageSize));
+        return Math.max(1, Math.ceil(rows().length / pageSize));
       }
 
-      function renderTable() {
+      function render() {
+        const allRows = rows();
         const totalPages = pageCount();
         if (currentPage > totalPages) currentPage = totalPages;
         const start = (currentPage - 1) * pageSize;
-        const currentData = userData.slice(start, start + pageSize);
+        const end = start + pageSize;
 
-        if (!currentData.length) {
-          tableBody.innerHTML = '<tr><td colspan="5">Data user kosong.</td></tr>';
-        } else {
-          tableBody.innerHTML = currentData.map(function (item) {
-            return "<tr>" +
-              "<td>" + item.nama + "</td>" +
-              "<td>" + item.email + "</td>" +
-              "<td>" + item.role + "</td>" +
-              "<td>" + statusBadge(item.status) + "</td>" +
-              '<td><div class="actions">' +
-              '<button class="btn btn-soft edit-btn" type="button" data-email="' + item.email + '" data-bs-toggle="modal" data-bs-target="#editUserModal">Edit</button>' +
-              '<button class="btn btn-danger delete-btn" type="button" data-email="' + item.email + '">Hapus</button>' +
-              "</div></td>" +
-              "</tr>";
-          }).join("");
-        }
+        allRows.forEach(function (row, index) {
+          row.style.display = index >= start && index < end ? "" : "none";
+        });
 
-        info.textContent = "Halaman " + currentPage + " dari " + totalPages + " (Total " + userData.length + " data)";
-        pageLabel.textContent = currentPage + " / " + totalPages;
+        info.textContent = "Halaman " + currentPage + " dari " + totalPages + " (Total " + allRows.length + " data)";
+        label.textContent = currentPage + " / " + totalPages;
         prevBtn.disabled = currentPage === 1;
         nextBtn.disabled = currentPage === totalPages;
         prevItem.classList.toggle("disabled", currentPage === 1);
         nextItem.classList.toggle("disabled", currentPage === totalPages);
       }
 
-      tableBody.addEventListener("click", function (event) {
-        const editBtn = event.target.closest(".edit-btn");
-        const deleteBtn = event.target.closest(".delete-btn");
-
-        if (editBtn) {
-          const selected = userData.find(function (item) { return item.email === editBtn.dataset.email; });
-          if (!selected) return;
-          document.getElementById("editRefEmail").value = selected.email;
-          document.getElementById("editNama").value = selected.nama;
-          document.getElementById("editEmail").value = selected.email;
-          document.getElementById("editRole").value = selected.role;
-          document.getElementById("editStatus").value = selected.status;
-          return;
-        }
-
-        if (deleteBtn) {
-          const index = userData.findIndex(function (item) { return item.email === deleteBtn.dataset.email; });
-          if (index === -1) return;
-          userData.splice(index, 1);
-          renderTable();
-        }
-      });
-
-      document.getElementById("saveCreateUser").addEventListener("click", function () {
-        const entry = {
-          nama: document.getElementById("createNama").value.trim(),
-          email: document.getElementById("createEmail").value.trim(),
-          role: document.getElementById("createRole").value,
-          status: document.getElementById("createStatus").value
-        };
-        if (!entry.nama || !entry.email) return;
-        userData.push(entry);
-        currentPage = pageCount();
-        renderTable();
-        bootstrap.Modal.getInstance(document.getElementById("createUserModal")).hide();
-      });
-
-      document.getElementById("saveEditUser").addEventListener("click", function () {
-        const refEmail = document.getElementById("editRefEmail").value;
-        const target = userData.find(function (item) { return item.email === refEmail; });
-        if (!target) return;
-        target.nama = document.getElementById("editNama").value.trim();
-        target.email = document.getElementById("editEmail").value.trim();
-        target.role = document.getElementById("editRole").value;
-        target.status = document.getElementById("editStatus").value;
-        renderTable();
-        editModal.hide();
+      body.addEventListener("click", function (event) {
+        const deleteBtn = event.target.closest(".btn-delete");
+        if (!deleteBtn) return;
+        const row = deleteBtn.closest("tr");
+        if (!row) return;
+        row.remove();
+        render();
       });
 
       prevBtn.addEventListener("click", function () {
         if (currentPage > 1) {
           currentPage -= 1;
-          renderTable();
+          render();
         }
       });
 
       nextBtn.addEventListener("click", function () {
         if (currentPage < pageCount()) {
           currentPage += 1;
-          renderTable();
+          render();
         }
       });
 
-      renderTable();
+      render();
     })();
   </script>
 </body>
