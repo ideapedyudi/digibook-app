@@ -43,6 +43,14 @@ body {
     grid-template-columns: 280px 1fr;
 }
 
+#admin-sidebar {
+    height: 100%;
+}
+
+#admin-sidebar .sidebar {
+    min-height: 100vh;
+}
+
 .sidebar {
     background: var(--surface-soft);
     backdrop-filter: blur(10px);
@@ -60,8 +68,7 @@ body {
 }
 
 .logo {
-    width: 52px;
-    height: 52px;
+    width: 60px;
     object-fit: cover;
 }
 
@@ -317,6 +324,12 @@ th {
 @media (max-width: 991px) {
     .admin-layout {
         grid-template-columns: 1fr;
+    }
+
+    #admin-sidebar,
+    #admin-sidebar .sidebar {
+        height: auto;
+        min-height: auto;
     }
 
     .sidebar {
