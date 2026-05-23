@@ -8,11 +8,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../../assets/css/admin/panel.css">
 </head>
 <body>
   <div class="admin-layout">
-        <div id="admin-sidebar"></div>
+    <div id="admin-sidebar"></div>
 
     <main class="main-content">
       <header class="topbar">
@@ -39,7 +40,7 @@
 
       <section class="panel table-wrap">
         <h3>Daftar Review Buku</h3>
-        <p id="resultInfo" style="margin-bottom:10px;color:var(--text-muted);">Total review: 0</p>
+        <p id="resultInfo" style="margin-bottom:10px;color:var(--text-muted);"></p>
         <table>
           <thead>
             <tr>
@@ -53,95 +54,147 @@
           </thead>
           <tbody id="reviewTableBody"></tbody>
         </table>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px;">
+          <p id="reviewPaginationInfo" style="margin:0;color:var(--text-muted);"></p>
+          <nav aria-label="Review pagination">
+            <ul class="pagination pagination-sm mb-0">
+              <li class="page-item" id="reviewPrevItem"><button class="page-link" id="reviewPrevBtn" type="button">Previous</button></li>
+              <li class="page-item disabled"><span class="page-link" id="reviewPageLabel">1</span></li>
+              <li class="page-item" id="reviewNextItem"><button class="page-link" id="reviewNextBtn" type="button">Next</button></li>
+            </ul>
+          </nav>
+        </div>
       </section>
     </main>
   </div>
 
   <script>
-    const reviewData = [
-      { id: 1, book: "Makrifat Daun", reviewer: "Rahma", rating: 5, review: "Bahasanya dalam dan sangat reflektif." },
-      { id: 2, book: "Makrifat Daun", reviewer: "Bima", rating: 4, review: "Bagus, cocok untuk bahan diskusi komunitas." },
-      { id: 3, book: "Dilarang Mencintai Bunga-Bunga", reviewer: "Nanda", rating: 5, review: "Puitis dan kuat secara kritik sosial." },
-      { id: 4, book: "Perubahan Sosial Dalam Masyarakat", reviewer: "Ayu", rating: 3, review: "Isinya padat, butuh waktu untuk memahami." },
-      { id: 5, book: "Identitas Politik Umat Islam", reviewer: "Rizky", rating: 4, review: "Relevan untuk kajian politik kontemporer." }
-    ];
+    (function () {
+      const pageSize = 10;
+      let currentPage = 1;
+      const reviewData = [
+        { id: 1, book: "Makrifat Daun", reviewer: "Rahma", rating: 5, review: "Bahasanya dalam dan sangat reflektif." },
+        { id: 2, book: "Makrifat Daun", reviewer: "Bima", rating: 4, review: "Bagus untuk diskusi komunitas." },
+        { id: 3, book: "Dilarang Mencintai Bunga-Bunga", reviewer: "Nanda", rating: 5, review: "Puitis dan kritik sosialnya kuat." },
+        { id: 4, book: "Perubahan Sosial Dalam Masyarakat", reviewer: "Ayu", rating: 3, review: "Isinya padat, butuh fokus." },
+        { id: 5, book: "Identitas Politik Umat Islam", reviewer: "Rizky", rating: 4, review: "Relevan untuk kajian politik." },
+        { id: 6, book: "Pulang", reviewer: "Dita", rating: 4, review: "Alurnya cepat dan emosional." },
+        { id: 7, book: "Bumi Manusia", reviewer: "Hadi", rating: 5, review: "Klasik yang wajib dibaca." },
+        { id: 8, book: "Laut Bercerita", reviewer: "Nisa", rating: 5, review: "Sangat menyentuh dan kuat." },
+        { id: 9, book: "Filosofi Teras", reviewer: "Wahyu", rating: 4, review: "Praktis untuk self improvement." },
+        { id: 10, book: "Atomic Habits", reviewer: "Rara", rating: 5, review: "Terapannya mudah dipahami." },
+        { id: 11, book: "Madilog", reviewer: "Arif", rating: 3, review: "Berat tapi insightful." },
+        { id: 12, book: "Sapiens", reviewer: "Tono", rating: 4, review: "Sudut pandang sejarahnya luas." },
+        { id: 13, book: "The Art of War", reviewer: "Iqbal", rating: 4, review: "Singkat tapi strategis." },
+        { id: 14, book: "Negeri 5 Menara", reviewer: "Dewi", rating: 4, review: "Inspiratif dan ringan." },
+        { id: 15, book: "Thinking Fast and Slow", reviewer: "Nina", rating: 5, review: "Membuka cara pikir baru." }
+      ];
 
-    const reviewTableBody = document.getElementById("reviewTableBody");
-    const resultInfo = document.getElementById("resultInfo");
-    const bookFilter = document.getElementById("bookFilter");
-    const filterForm = document.getElementById("filterForm");
-    const resetFilter = document.getElementById("resetFilter");
+      const reviewTableBody = document.getElementById("reviewTableBody");
+      const resultInfo = document.getElementById("resultInfo");
+      const reviewPaginationInfo = document.getElementById("reviewPaginationInfo");
+      const reviewPageLabel = document.getElementById("reviewPageLabel");
+      const prevBtn = document.getElementById("reviewPrevBtn");
+      const nextBtn = document.getElementById("reviewNextBtn");
+      const prevItem = document.getElementById("reviewPrevItem");
+      const nextItem = document.getElementById("reviewNextItem");
+      const bookFilter = document.getElementById("bookFilter");
+      const filterForm = document.getElementById("filterForm");
+      const resetFilter = document.getElementById("resetFilter");
 
-    function renderStars(rating) {
-      let stars = "";
-      for (let i = 1; i <= 5; i += 1) {
-        stars += i <= rating ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
+      function renderStars(rating) {
+        let stars = "";
+        for (let i = 1; i <= 5; i += 1) {
+          stars += i <= rating ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
+        }
+        return stars;
       }
-      return stars;
-    }
 
-    function renderTable(data) {
-      resultInfo.textContent = `Total review: ${data.length}`;
-
-      if (!data.length) {
-        reviewTableBody.innerHTML = '<tr><td colspan="6">Tidak ada review yang cocok dengan filter.</td></tr>';
-        return;
+      function getFilteredData() {
+        const keyword = bookFilter.value.trim().toLowerCase();
+        if (!keyword) return reviewData;
+        return reviewData.filter(function (item) {
+          return item.book.toLowerCase().includes(keyword);
+        });
       }
 
-      reviewTableBody.innerHTML = data.map((item) => `
-        <tr>
-          <td>RV-${String(item.id).padStart(3, "0")}</td>
-          <td>${item.book}</td>
-          <td>${item.reviewer}</td>
-          <td><span class="badge warning">${renderStars(item.rating)}</span></td>
-          <td>${item.review}</td>
-          <td>
-            <div class="actions">
-              <button class="btn btn-danger btn-delete" type="button" data-id="${item.id}">Hapus</button>
-            </div>
-          </td>
-        </tr>
-      `).join("");
-    }
+      function renderTable() {
+        const filteredData = getFilteredData();
+        const totalPages = Math.max(1, Math.ceil(filteredData.length / pageSize));
+        if (currentPage > totalPages) currentPage = totalPages;
 
-    function getFilteredData() {
-      const keyword = bookFilter.value.trim().toLowerCase();
-      if (!keyword) return reviewData;
-      return reviewData.filter((item) => item.book.toLowerCase().includes(keyword));
-    }
+        const start = (currentPage - 1) * pageSize;
+        const currentData = filteredData.slice(start, start + pageSize);
 
-    function applyFilter(event) {
-      if (event) event.preventDefault();
-      renderTable(getFilteredData());
-    }
+        resultInfo.textContent = "Total review: " + filteredData.length;
 
-    filterForm.addEventListener("submit", applyFilter);
-    bookFilter.addEventListener("input", applyFilter);
+        if (!currentData.length) {
+          reviewTableBody.innerHTML = '<tr><td colspan="6">Tidak ada review yang cocok dengan filter.</td></tr>';
+        } else {
+          reviewTableBody.innerHTML = currentData.map(function (item) {
+            return "<tr>" +
+              "<td>RV-" + String(item.id).padStart(3, "0") + "</td>" +
+              "<td>" + item.book + "</td>" +
+              "<td>" + item.reviewer + "</td>" +
+              '<td><span class="badge warning">' + renderStars(item.rating) + "</span></td>" +
+              "<td>" + item.review + "</td>" +
+              '<td><div class="actions"><button class="btn btn-danger btn-delete" type="button" data-id="' + item.id + '">Hapus</button></div></td>' +
+              "</tr>";
+          }).join("");
+        }
 
-    resetFilter.addEventListener("click", () => {
-      bookFilter.value = "";
-      renderTable(reviewData);
-    });
+        reviewPaginationInfo.textContent = "Halaman " + currentPage + " dari " + totalPages;
+        reviewPageLabel.textContent = currentPage + " / " + totalPages;
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
+        prevItem.classList.toggle("disabled", currentPage === 1);
+        nextItem.classList.toggle("disabled", currentPage === totalPages);
+      }
 
-    reviewTableBody.addEventListener("click", (event) => {
-      const deleteBtn = event.target.closest(".btn-delete");
-      if (!deleteBtn) return;
+      function applyFilter(event) {
+        if (event) event.preventDefault();
+        currentPage = 1;
+        renderTable();
+      }
 
-      const reviewId = Number(deleteBtn.dataset.id);
-      const reviewIndex = reviewData.findIndex((item) => item.id === reviewId);
-      if (reviewIndex === -1) return;
+      filterForm.addEventListener("submit", applyFilter);
+      bookFilter.addEventListener("input", applyFilter);
 
-      const selectedReview = reviewData[reviewIndex];
-      const confirmed = window.confirm(`Hapus review dari buku "${selectedReview.book}" oleh ${selectedReview.reviewer}?`);
-      if (!confirmed) return;
+      resetFilter.addEventListener("click", function () {
+        bookFilter.value = "";
+        currentPage = 1;
+        renderTable();
+      });
 
-      reviewData.splice(reviewIndex, 1);
-      renderTable(getFilteredData());
-    });
+      prevBtn.addEventListener("click", function () {
+        if (currentPage > 1) {
+          currentPage -= 1;
+          renderTable();
+        }
+      });
 
-    renderTable(reviewData);
+      nextBtn.addEventListener("click", function () {
+        const totalPages = Math.max(1, Math.ceil(getFilteredData().length / pageSize));
+        if (currentPage < totalPages) {
+          currentPage += 1;
+          renderTable();
+        }
+      });
+
+      reviewTableBody.addEventListener("click", function (event) {
+        const deleteBtn = event.target.closest(".btn-delete");
+        if (!deleteBtn) return;
+
+        const reviewId = Number(deleteBtn.dataset.id);
+        const reviewIndex = reviewData.findIndex(function (item) { return item.id === reviewId; });
+        if (reviewIndex === -1) return;
+        reviewData.splice(reviewIndex, 1);
+        renderTable();
+      });
+
+      renderTable();
+    })();
   </script>
   <script src="../../assets/script/admin/shared-layout.js"></script>
 </body>
 </html>
-

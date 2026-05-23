@@ -35,45 +35,18 @@
               <th>Aksi</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>KT-001</td>
-              <td>Sastra Indonesia</td>
-              <td>48</td>
-              <td><span class="badge success">Aktif</span></td>
-              <td>
-                <div class="actions">
-                  <button class="btn btn-soft edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#editKategoriModal">Edit</button>
-                  <button class="btn btn-danger delete-btn" type="button">Hapus</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>KT-002</td>
-              <td>Filsafat</td>
-              <td>21</td>
-              <td><span class="badge success">Aktif</span></td>
-              <td>
-                <div class="actions">
-                  <button class="btn btn-soft edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#editKategoriModal">Edit</button>
-                  <button class="btn btn-danger delete-btn" type="button">Hapus</button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>KT-003</td>
-              <td>Sosiologi</td>
-              <td>17</td>
-              <td><span class="badge warning">Draft</span></td>
-              <td>
-                <div class="actions">
-                  <button class="btn btn-soft edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#editKategoriModal">Edit</button>
-                  <button class="btn btn-danger delete-btn" type="button">Hapus</button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
+          <tbody id="kategoriTableBody"></tbody>
         </table>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px;">
+          <p id="kategoriPaginationInfo" style="margin:0;color:var(--text-muted);"></p>
+          <nav aria-label="Kategori pagination">
+            <ul class="pagination pagination-sm mb-0" id="kategoriPagination">
+              <li class="page-item" id="kategoriPrevItem"><button class="page-link" id="kategoriPrevBtn" type="button">Previous</button></li>
+              <li class="page-item disabled"><span class="page-link" id="kategoriPageLabel">1</span></li>
+              <li class="page-item" id="kategoriNextItem"><button class="page-link" id="kategoriNextBtn" type="button">Next</button></li>
+            </ul>
+          </nav>
+        </div>
       </section>
     </main>
   </div>
@@ -87,7 +60,7 @@
         </div>
         <div class="modal-body">
           <form class="form-grid" id="createKategoriForm">
-            <div class="field"><label>ID Kategori</label><input type="text" id="createKategoriId" value="KT-004"></div>
+            <div class="field"><label>ID Kategori</label><input type="text" id="createKategoriId" value="KT-016"></div>
             <div class="field"><label>Nama Kategori</label><input type="text" id="createKategoriNama" value="Psikologi Populer"></div>
             <div class="field"><label>Jumlah Buku</label><input type="number" id="createKategoriJumlah" value="9"></div>
             <div class="field"><label>Status</label><select id="createKategoriStatus"><option selected>Aktif</option><option>Draft</option></select></div>
@@ -110,7 +83,7 @@
         </div>
         <div class="modal-body">
           <form class="form-grid" id="editKategoriForm">
-            <input type="hidden" id="editKategoriRowIndex">
+            <input type="hidden" id="editKategoriIdRef">
             <div class="field"><label>ID Kategori</label><input type="text" id="editKategoriId"></div>
             <div class="field"><label>Nama Kategori</label><input type="text" id="editKategoriNama"></div>
             <div class="field"><label>Jumlah Buku</label><input type="number" id="editKategoriJumlah"></div>
@@ -129,62 +102,138 @@
   <script src="../../assets/script/admin/shared-layout.js"></script>
   <script>
     (function () {
-      const tableBody = document.querySelector("#kategoriTable tbody");
-      const editModalElement = document.getElementById("editKategoriModal");
-      const editModal = new bootstrap.Modal(editModalElement);
+      const pageSize = 10;
+      let currentPage = 1;
+      const kategoriData = [
+        { id: "KT-001", nama: "Sastra Indonesia", jumlah: 48, status: "Aktif" },
+        { id: "KT-002", nama: "Filsafat", jumlah: 21, status: "Aktif" },
+        { id: "KT-003", nama: "Sosiologi", jumlah: 17, status: "Draft" },
+        { id: "KT-004", nama: "Sejarah", jumlah: 14, status: "Aktif" },
+        { id: "KT-005", nama: "Psikologi", jumlah: 26, status: "Aktif" },
+        { id: "KT-006", nama: "Bisnis", jumlah: 19, status: "Aktif" },
+        { id: "KT-007", nama: "Pendidikan", jumlah: 11, status: "Draft" },
+        { id: "KT-008", nama: "Teknologi", jumlah: 23, status: "Aktif" },
+        { id: "KT-009", nama: "Agama", jumlah: 35, status: "Aktif" },
+        { id: "KT-010", nama: "Kesehatan", jumlah: 9, status: "Draft" },
+        { id: "KT-011", nama: "Ekonomi", jumlah: 15, status: "Aktif" },
+        { id: "KT-012", nama: "Hukum", jumlah: 13, status: "Aktif" },
+        { id: "KT-013", nama: "Politik", jumlah: 10, status: "Draft" },
+        { id: "KT-014", nama: "Budaya", jumlah: 12, status: "Aktif" },
+        { id: "KT-015", nama: "Biografi", jumlah: 16, status: "Aktif" }
+      ];
+
+      const tableBody = document.getElementById("kategoriTableBody");
+      const info = document.getElementById("kategoriPaginationInfo");
+      const pageLabel = document.getElementById("kategoriPageLabel");
+      const prevBtn = document.getElementById("kategoriPrevBtn");
+      const nextBtn = document.getElementById("kategoriNextBtn");
+      const prevItem = document.getElementById("kategoriPrevItem");
+      const nextItem = document.getElementById("kategoriNextItem");
+      const editModal = new bootstrap.Modal(document.getElementById("editKategoriModal"));
 
       function statusBadge(statusText) {
         const cls = statusText === "Aktif" ? "success" : "warning";
         return '<span class="badge ' + cls + '">' + statusText + "</span>";
       }
 
-      function createActionButtons() {
-        return '<div class="actions"><button class="btn btn-soft edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#editKategoriModal">Edit</button><button class="btn btn-danger delete-btn" type="button">Hapus</button></div>';
+      function pageCount() {
+        return Math.max(1, Math.ceil(kategoriData.length / pageSize));
+      }
+
+      function renderTable() {
+        const totalPages = pageCount();
+        if (currentPage > totalPages) currentPage = totalPages;
+        const start = (currentPage - 1) * pageSize;
+        const end = start + pageSize;
+        const currentData = kategoriData.slice(start, end);
+
+        if (!currentData.length) {
+          tableBody.innerHTML = '<tr><td colspan="5">Data kategori kosong.</td></tr>';
+        } else {
+          tableBody.innerHTML = currentData.map(function (item) {
+            return '<tr>' +
+              "<td>" + item.id + "</td>" +
+              "<td>" + item.nama + "</td>" +
+              "<td>" + item.jumlah + "</td>" +
+              "<td>" + statusBadge(item.status) + "</td>" +
+              '<td><div class="actions">' +
+              '<button class="btn btn-soft edit-btn" type="button" data-id="' + item.id + '" data-bs-toggle="modal" data-bs-target="#editKategoriModal">Edit</button>' +
+              '<button class="btn btn-danger delete-btn" type="button" data-id="' + item.id + '">Hapus</button>' +
+              "</div></td>" +
+              "</tr>";
+          }).join("");
+        }
+
+        info.textContent = "Halaman " + currentPage + " dari " + totalPages + " (Total " + kategoriData.length + " data)";
+        pageLabel.textContent = currentPage + " / " + totalPages;
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages;
+        prevItem.classList.toggle("disabled", currentPage === 1);
+        nextItem.classList.toggle("disabled", currentPage === totalPages);
       }
 
       tableBody.addEventListener("click", function (event) {
-        const row = event.target.closest("tr");
-        if (!row) return;
-        if (event.target.classList.contains("delete-btn")) {
-          row.remove();
+        const editBtn = event.target.closest(".edit-btn");
+        const deleteBtn = event.target.closest(".delete-btn");
+
+        if (editBtn) {
+          const selected = kategoriData.find(function (item) { return item.id === editBtn.dataset.id; });
+          if (!selected) return;
+          document.getElementById("editKategoriIdRef").value = selected.id;
+          document.getElementById("editKategoriId").value = selected.id;
+          document.getElementById("editKategoriNama").value = selected.nama;
+          document.getElementById("editKategoriJumlah").value = selected.jumlah;
+          document.getElementById("editKategoriStatus").value = selected.status;
           return;
         }
-        if (event.target.classList.contains("edit-btn")) {
-          const cells = row.querySelectorAll("td");
-          document.getElementById("editKategoriRowIndex").value = Array.from(tableBody.children).indexOf(row);
-          document.getElementById("editKategoriId").value = cells[0].textContent.trim();
-          document.getElementById("editKategoriNama").value = cells[1].textContent.trim();
-          document.getElementById("editKategoriJumlah").value = cells[2].textContent.trim();
-          document.getElementById("editKategoriStatus").value = cells[3].textContent.trim();
+
+        if (deleteBtn) {
+          const index = kategoriData.findIndex(function (item) { return item.id === deleteBtn.dataset.id; });
+          if (index === -1) return;
+          kategoriData.splice(index, 1);
+          renderTable();
         }
       });
 
       document.getElementById("saveCreateKategori").addEventListener("click", function () {
         const id = document.getElementById("createKategoriId").value.trim();
         const nama = document.getElementById("createKategoriNama").value.trim();
-        const jumlah = document.getElementById("createKategoriJumlah").value.trim();
+        const jumlah = Number(document.getElementById("createKategoriJumlah").value);
         const status = document.getElementById("createKategoriStatus").value;
-        if (!id || !nama || !jumlah) return;
-        const row = document.createElement("tr");
-        row.innerHTML = "<td>" + id + "</td><td>" + nama + "</td><td>" + jumlah + "</td><td>" + statusBadge(status) + "</td><td>" + createActionButtons() + "</td>";
-        tableBody.appendChild(row);
+        if (!id || !nama || !Number.isFinite(jumlah)) return;
+        kategoriData.push({ id: id, nama: nama, jumlah: jumlah, status: status });
+        currentPage = pageCount();
+        renderTable();
         bootstrap.Modal.getInstance(document.getElementById("createKategoriModal")).hide();
       });
 
       document.getElementById("saveEditKategori").addEventListener("click", function () {
-        const rowIndex = parseInt(document.getElementById("editKategoriRowIndex").value, 10);
-        const row = tableBody.children[rowIndex];
-        if (!row) return;
-        const id = document.getElementById("editKategoriId").value.trim();
-        const nama = document.getElementById("editKategoriNama").value.trim();
-        const jumlah = document.getElementById("editKategoriJumlah").value.trim();
-        const status = document.getElementById("editKategoriStatus").value;
-        row.children[0].textContent = id;
-        row.children[1].textContent = nama;
-        row.children[2].textContent = jumlah;
-        row.children[3].innerHTML = statusBadge(status);
+        const refId = document.getElementById("editKategoriIdRef").value;
+        const target = kategoriData.find(function (item) { return item.id === refId; });
+        if (!target) return;
+        target.id = document.getElementById("editKategoriId").value.trim();
+        target.nama = document.getElementById("editKategoriNama").value.trim();
+        target.jumlah = Number(document.getElementById("editKategoriJumlah").value);
+        target.status = document.getElementById("editKategoriStatus").value;
+        renderTable();
         editModal.hide();
       });
+
+      prevBtn.addEventListener("click", function () {
+        if (currentPage > 1) {
+          currentPage -= 1;
+          renderTable();
+        }
+      });
+
+      nextBtn.addEventListener("click", function () {
+        if (currentPage < pageCount()) {
+          currentPage += 1;
+          renderTable();
+        }
+      });
+
+      renderTable();
     })();
   </script>
 </body>
