@@ -126,7 +126,8 @@ p {
 
 .banner-text-right {
     margin-top: 1.5rem !important;
-    text-align: right !important;
+    text-align: left !important;
+    margin-left: 0 !important;
 }
 
 .banner-text-right h2 {
@@ -136,8 +137,7 @@ p {
 
 .banner-text-right p {
     margin-bottom: 1.2rem !important;
-    text-align: justify;
-    text-justify: inter-word;
+    text-align: left;
 }
 
 .all-btns {
@@ -848,7 +848,7 @@ p {
     }
 
     .banner-text-right {
-        text-align: center !important;
+        text-align: left !important;
     }
 
     .hero-action-btns {
