@@ -99,6 +99,11 @@
     color: var(--primary-color) !important;
 }
 
+.social-links a.active {
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue)) !important;
+    color: var(--primary-color) !important;
+}
+
 @media (max-width: 991px) {
     .searchbar {
         margin: 1rem 0 !important;
