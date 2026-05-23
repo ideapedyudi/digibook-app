@@ -220,6 +220,52 @@ p {
     margin-bottom: 2.5rem;
 }
 
+/* Banner text yang diletakkan di sisi kanan (di bawah slider) */
+.home-slider + .banner-text {
+    margin-top: 1.5rem;
+    text-align: right;
+}
+
+.home-slider + .banner-text h2 {
+    font-size: 2.1rem;
+    margin-bottom: 0.8rem;
+}
+
+.home-slider + .banner-text p {
+    margin-bottom: 1.2rem;
+}
+
+.banner-text-right {
+    margin-top: 1.5rem !important;
+    text-align: right !important;
+}
+
+.banner-text-right h2 {
+    font-size: 2.1rem !important;
+    margin-bottom: 0.8rem !important;
+}
+
+.banner-text-right p {
+    margin-bottom: 1.2rem !important;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.all-btns {
+    display: inline-block;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    box-shadow: 0 8px 20px rgba(46, 36, 91, 0.18);
+}
+
+.all-btns:hover {
+    background: #231b47;
+    transform: translateY(-2px);
+}
+
 .all-btns.btn-primary-custom {
     display: inline-block;
     background: var(--primary-color);
@@ -886,6 +932,14 @@ p {
 
     .banner-text h2 {
         font-size: 2.5rem;
+    }
+
+    .home-slider + .banner-text {
+        text-align: center;
+    }
+
+    .banner-text-right {
+        text-align: center !important;
     }
     
     .hero-action-btns {
