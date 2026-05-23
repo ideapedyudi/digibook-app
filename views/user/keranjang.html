@@ -32,82 +32,45 @@
                 <p class="text-muted mb-0">Periksa kembali item Anda sebelum melanjutkan pembayaran.</p>
             </div>
 
-            <div class="row g-4">
-                <div class="col-lg-8">
-                    <section class="cart-card p-4 p-md-5">
-                        <div id="cartItems">
-                            <article class="cart-item" data-price="50000">
-                                <img src="../../assets/pic/b-1.png" alt="Makrifat Daun" class="cart-cover">
-                                <div>
-                                    <h5 class="cart-book-title">Makrifat Daun: Daun Makrifat</h5>
-                                    <p class="cart-book-meta mb-2">Kuntowijoyo • PDF Premium</p>
-                                    <div class="d-flex align-items-center gap-3 flex-wrap">
-                                        <div class="qty-box">
-                                            <button class="qty-btn btn-minus" type="button">-</button>
-                                            <span class="qty-value">1</span>
-                                            <button class="qty-btn btn-plus" type="button">+</button>
-                                        </div>
-                                        <button class="remove-btn btn-remove" type="button"><i class="fa-regular fa-trash-can me-1"></i>Hapus</button>
-                                    </div>
-                                </div>
-                                <div class="price-block">
-                                    <div class="price-main item-total">Rp 50.000</div>
-                                    <div class="price-sub">Rp 50.000 / item</div>
-                                </div>
-                            </article>
-
-                            <article class="cart-item" data-price="135000">
-                                <img src="../../assets/pic/b-2.png" alt="Dilarang Mencintai Bunga-Bunga" class="cart-cover">
-                                <div>
-                                    <h5 class="cart-book-title">Dilarang Mencintai Bunga-Bunga</h5>
-                                    <p class="cart-book-meta mb-2">Kuntowijoyo • PDF Premium</p>
-                                    <div class="d-flex align-items-center gap-3 flex-wrap">
-                                        <div class="qty-box">
-                                            <button class="qty-btn btn-minus" type="button">-</button>
-                                            <span class="qty-value">1</span>
-                                            <button class="qty-btn btn-plus" type="button">+</button>
-                                        </div>
-                                        <button class="remove-btn btn-remove" type="button"><i class="fa-regular fa-trash-can me-1"></i>Hapus</button>
-                                    </div>
-                                </div>
-                                <div class="price-block">
-                                    <div class="price-main item-total">Rp 135.000</div>
-                                    <div class="price-sub">Rp 135.000 / item</div>
-                                </div>
-                            </article>
-                        </div>
-                    </section>
-                </div>
-
-                <div class="col-lg-4">
-                    <aside class="cart-card p-4 summary-sticky">
-                        <h5 class="fw-bold mb-3">Ringkasan Belanja</h5>
-                        <div class="summary-row">
-                            <span>Subtotal</span>
-                            <strong id="summarySubtotal">Rp 185.000</strong>
-                        </div>
-                        <div class="summary-row">
-                            <span>Biaya Layanan</span>
-                            <strong id="summaryFee">Rp 2.500</strong>
-                        </div>
-                        <div class="summary-row">
-                            <span>Diskon</span>
-                            <strong class="text-success">- Rp 0</strong>
-                        </div>
-                        <div class="summary-row total">
-                            <span>Total</span>
-                            <span id="summaryTotal">Rp 187.500</span>
-                        </div>
-
-                        <a href="transaction.html" class="btn btn-primary-buy w-100 py-3 fw-bold rounded-3 mt-3 d-flex align-items-center justify-content-center gap-2">
-                            <i class="fa-solid fa-credit-card"></i> Lanjut Pembayaran
+            <section class="cart-card p-4 p-md-5">
+                <div id="cartItems">
+                    <article class="cart-item cart-item-wrap">
+                        <a href="detail.html" class="cart-item-link">
+                            <img src="../../assets/pic/b-1.png" alt="Makrifat Daun" class="cart-cover">
+                            <div>
+                                <h5 class="cart-book-title">Makrifat Daun: Daun Makrifat</h5>
+                                <p class="cart-book-meta mb-1">Kuntowijoyo • PDF Premium</p>
+                                <small class="text-muted"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i>Klik untuk lihat detail buku</small>
+                            </div>
+                            <div class="price-block">
+                                <div class="price-main">Rp 50.000</div>
+                                <div class="price-sub">Akses aktif</div>
+                            </div>
                         </a>
-                        <a href="index.html#koleksi" class="btn btn-outline-cart w-100 py-3 fw-bold rounded-3 mt-2 d-flex align-items-center justify-content-center gap-2">
-                            <i class="fa-solid fa-book-open"></i> Tambah Buku Lagi
+                        <div class="cart-item-actions">
+                            <button type="button" class="remove-btn btn-remove-cart"><i class="fa-regular fa-trash-can me-1"></i>Hapus</button>
+                        </div>
+                    </article>
+
+                    <article class="cart-item cart-item-wrap">
+                        <a href="detail.html" class="cart-item-link">
+                            <img src="../../assets/pic/b-2.png" alt="Dilarang Mencintai Bunga-Bunga" class="cart-cover">
+                            <div>
+                                <h5 class="cart-book-title">Dilarang Mencintai Bunga-Bunga</h5>
+                                <p class="cart-book-meta mb-1">Kuntowijoyo • PDF Premium</p>
+                                <small class="text-muted"><i class="fa-solid fa-arrow-up-right-from-square me-1"></i>Klik untuk lihat detail buku</small>
+                            </div>
+                            <div class="price-block">
+                                <div class="price-main">Rp 135.000</div>
+                                <div class="price-sub">Akses aktif</div>
+                            </div>
                         </a>
-                    </aside>
+                        <div class="cart-item-actions">
+                            <button type="button" class="remove-btn btn-remove-cart"><i class="fa-regular fa-trash-can me-1"></i>Hapus</button>
+                        </div>
+                    </article>
                 </div>
-            </div>
+            </section>
         </div>
     </main>
 
@@ -117,62 +80,14 @@
     <script src="../../assets/script/user/shared-layout.js"></script>
     <script>
         (function () {
-            const fee = 2500;
             const cartItems = document.getElementById('cartItems');
-            const subtotalEl = document.getElementById('summarySubtotal');
-            const totalEl = document.getElementById('summaryTotal');
-            const feeEl = document.getElementById('summaryFee');
-
-            function rupiah(value) {
-                return 'Rp ' + value.toLocaleString('id-ID');
-            }
-
-            function recalc() {
-                let subtotal = 0;
-                const items = cartItems.querySelectorAll('.cart-item');
-                items.forEach(function (item) {
-                    const qty = parseInt(item.querySelector('.qty-value').textContent, 10);
-                    const price = parseInt(item.dataset.price, 10);
-                    const total = qty * price;
-                    item.querySelector('.item-total').textContent = rupiah(total);
-                    subtotal += total;
-                });
-
-                subtotalEl.textContent = rupiah(subtotal);
-                feeEl.textContent = rupiah(fee);
-                totalEl.textContent = rupiah(subtotal + fee);
-            }
-
             cartItems.addEventListener('click', function (event) {
-                const item = event.target.closest('.cart-item');
+                const removeBtn = event.target.closest('.btn-remove-cart');
+                if (!removeBtn) return;
+                const item = removeBtn.closest('.cart-item-wrap');
                 if (!item) return;
-
-                const qtyEl = item.querySelector('.qty-value');
-                let qty = parseInt(qtyEl.textContent, 10);
-
-                if (event.target.closest('.btn-plus')) {
-                    qty += 1;
-                    qtyEl.textContent = qty;
-                    recalc();
-                    return;
-                }
-
-                if (event.target.closest('.btn-minus')) {
-                    if (qty > 1) {
-                        qty -= 1;
-                        qtyEl.textContent = qty;
-                        recalc();
-                    }
-                    return;
-                }
-
-                if (event.target.closest('.btn-remove')) {
-                    item.remove();
-                    recalc();
-                }
+                item.remove();
             });
-
-            recalc();
         })();
     </script>
 </body>
