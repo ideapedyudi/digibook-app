@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Katalog Buku</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/admin/panel.css">
+</head>
+
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="brand"><img src="../../assets/pic/logo.png" alt="Logo" class="logo">
+        <div>
+          <h1>BookStore</h1>
+          <p>Admin Panel</p>
+        </div>
+      </div>
+      <nav class="menu">
+        <a href="kategori-buku.html" class="menu-item"><i class="fa-solid fa-layer-group"></i> Kategori Buku</a>
+        <a href="katalog-buku.html" class="menu-item active"><i class="fa-solid fa-book-open"></i> Katalog Buku</a>
+        <a href="transaksi.html" class="menu-item"><i class="fa-solid fa-money-bill-transfer"></i> Data transaksi pembelian</a>
+        <a href="report.html" class="menu-item"><i class="fa-solid fa-chart-line"></i> Laporan penjualan</a>
+        <a href="filter-review.html" class="menu-item"><i class="fa-solid fa-filter"></i> Filter Review</a>
+        <a href="user.html" class="menu-item"><i class="fa-solid fa-users"></i> User</a>
+      </nav>
+      <a href="../auth/auth.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </aside>
+    <main class="main-content">
+      <header class="topbar">
+        <h2>Katalog Buku</h2>
+        <p>Kelola list buku, tambah buku baru, dan edit data buku yang sudah ada.</p>
+      </header>
+
+      <section class="panel">
+        <h3>Form Buku (Tambah / Edit)</h3>
+        <p style="margin-bottom:14px;color:var(--text-muted);">Gunakan satu form ini untuk tambah buku baru atau edit
+          data buku yang sudah ada. Sample data terisi dari BK-004.</p>
+        <form class="form-grid">
+          <div class="field"><label>ID Buku</label><input type="text" value="BK-004"></div>
+          <div class="field"><label>Judul Buku</label><input type="text" value="Dilarang Mencintai Bunga-Bunga"></div>
+          <div class="field"><label>Penulis</label><input type="text" value="Kuntowijoyo"></div>
+          <div class="field"><label>Kategori</label><select>
+              <option>Sastra Indonesia</option>
+              <option>Sosiologi</option>
+              <option>Filsafat</option>
+            </select></div>
+          <div class="field"><label>Harga</label><input type="number" value="135000"></div>
+          <div class="field"><label>Stok</label><input type="number" value="18"></div>
+          <div class="field"><label>Tahun Terbit</label><input type="number" value="2017"></div>
+          <div class="field"><label>Status</label><select>
+              <option>Aktif</option>
+              <option>Draft</option>
+            </select></div>
+          <div class="field full">
+            <label>Deskripsi</label><textarea>Kumpulan cerpen reflektif dengan gaya bahasa puitis dan kritik sosial yang kuat.</textarea>
+          </div>
+          <div class="field full"><label>Cover (URL)</label><input type="text" value="../../assets/pic/b-4.png"></div>
+          <div class="field" style="justify-content:end;"><label>&nbsp;</label>
+            <div class="actions"><button class="btn btn-soft" type="button">Reset Form</button><button
+                class="btn btn-primary" type="button">Simpan Buku</button></div>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel table-wrap">
+        <h3>List Buku Katalog</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Judul</th>
+              <th>Penulis</th>
+              <th>Kategori</th>
+              <th>Harga</th>
+              <th>Stok</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>BK-001</td>
+              <td>Makrifat Daun</td>
+              <td>Kuntowijoyo</td>
+              <td>Sosiologi</td>
+              <td>Rp 50.000</td>
+              <td>42</td>
+              <td><span class="badge success">Aktif</span></td>
+              <td>
+                <div class="actions"><button class="btn btn-soft" type="button">Edit</button></div>
+              </td>
+            </tr>
+            <tr>
+              <td>BK-002</td>
+              <td>Perubahan Sosial Dalam Masyarakat</td>
+              <td>Kuntowijoyo</td>
+              <td>Sosiologi</td>
+              <td>Rp 200.000</td>
+              <td>34</td>
+              <td><span class="badge success">Aktif</span></td>
+              <td>
+                <div class="actions"><button class="btn btn-soft" type="button">Edit</button></div>
+              </td>
+            </tr>
+            <tr>
+              <td>BK-003</td>
+              <td>Pulang</td>
+              <td>Tere Liye</td>
+              <td>Sastra Indonesia</td>
+              <td>Rp 98.000</td>
+              <td>27</td>
+              <td><span class="badge success">Aktif</span></td>
+              <td>
+                <div class="actions"><button class="btn btn-soft" type="button">Edit</button></div>
+              </td>
+            </tr>
+            <tr>
+              <td>BK-004</td>
+              <td>Dilarang Mencintai Bunga-Bunga</td>
+              <td>Kuntowijoyo</td>
+              <td>Sastra Indonesia</td>
+              <td>Rp 135.000</td>
+              <td>18</td>
+              <td><span class="badge success">Aktif</span></td>
+              <td>
+                <div class="actions"><button class="btn btn-soft" type="button">Edit</button></div>
+              </td>
+            </tr>
+            <tr>
+              <td>BK-005</td>
+              <td>Pengantar Filsafat Modern</td>
+              <td>Franz Magnis</td>
+              <td>Filsafat</td>
+              <td>Rp 150.000</td>
+              <td>0</td>
+              <td><span class="badge warning">Draft</span></td>
+              <td>
+                <div class="actions"><button class="btn btn-soft" type="button">Edit</button></div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+</body>
+
+</html>

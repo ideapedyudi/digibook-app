@@ -240,6 +240,15 @@ body {
     color: var(--primary);
 }
 
+.btn-danger {
+    background: #dc3545;
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background: #b42b39;
+}
+
 .table-wrap {
     overflow-x: auto;
 }

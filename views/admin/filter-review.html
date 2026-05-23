@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Filter Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/admin/panel.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="brand"><img src="../../assets/pic/logo.png" alt="Logo" class="logo"><div><h1>BookStore</h1><p>Admin Panel</p></div></div>
+      <nav class="menu">
+        <a href="kategori-buku.html" class="menu-item"><i class="fa-solid fa-layer-group"></i> Kategori Buku</a>
+        <a href="katalog-buku.html" class="menu-item"><i class="fa-solid fa-book-open"></i> Katalog Buku</a>
+        <a href="transaksi.html" class="menu-item"><i class="fa-solid fa-money-bill-transfer"></i> Data transaksi pembelian</a>
+        <a href="report.html" class="menu-item"><i class="fa-solid fa-chart-line"></i> Laporan penjualan</a>
+        <a href="filter-review.html" class="menu-item active"><i class="fa-solid fa-filter"></i> Filter Review</a>
+        <a href="user.html" class="menu-item"><i class="fa-solid fa-users"></i> User</a>
+      </nav>
+      <a href="../auth/auth.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <h2>Filter Review</h2>
+        <p>Cari review berdasarkan nama buku lalu hapus review yang tidak diinginkan.</p>
+      </header>
+
+      <section class="panel">
+        <h3>Filter Berdasarkan Nama Buku</h3>
+        <form id="filterForm" class="form-grid">
+          <div class="field">
+            <label for="bookFilter">Nama Buku</label>
+            <input id="bookFilter" type="text" placeholder="Contoh: Makrifat Daun">
+          </div>
+          <div class="field" style="justify-content:end;">
+            <label>&nbsp;</label>
+            <div class="actions">
+              <button class="btn btn-primary" type="submit">Cari Review</button>
+              <button id="resetFilter" class="btn btn-soft" type="button">Reset</button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel table-wrap">
+        <h3>Daftar Review Buku</h3>
+        <p id="resultInfo" style="margin-bottom:10px;color:var(--text-muted);">Total review: 0</p>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama Buku</th>
+              <th>Reviewer</th>
+              <th>Rating</th>
+              <th>Review</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="reviewTableBody"></tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const reviewData = [
+      { id: 1, book: "Makrifat Daun", reviewer: "Rahma", rating: 5, review: "Bahasanya dalam dan sangat reflektif." },
+      { id: 2, book: "Makrifat Daun", reviewer: "Bima", rating: 4, review: "Bagus, cocok untuk bahan diskusi komunitas." },
+      { id: 3, book: "Dilarang Mencintai Bunga-Bunga", reviewer: "Nanda", rating: 5, review: "Puitis dan kuat secara kritik sosial." },
+      { id: 4, book: "Perubahan Sosial Dalam Masyarakat", reviewer: "Ayu", rating: 3, review: "Isinya padat, butuh waktu untuk memahami." },
+      { id: 5, book: "Identitas Politik Umat Islam", reviewer: "Rizky", rating: 4, review: "Relevan untuk kajian politik kontemporer." }
+    ];
+
+    const reviewTableBody = document.getElementById("reviewTableBody");
+    const resultInfo = document.getElementById("resultInfo");
+    const bookFilter = document.getElementById("bookFilter");
+    const filterForm = document.getElementById("filterForm");
+    const resetFilter = document.getElementById("resetFilter");
+
+    function renderStars(rating) {
+      let stars = "";
+      for (let i = 1; i <= 5; i += 1) {
+        stars += i <= rating ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
+      }
+      return stars;
+    }
+
+    function renderTable(data) {
+      resultInfo.textContent = `Total review: ${data.length}`;
+
+      if (!data.length) {
+        reviewTableBody.innerHTML = '<tr><td colspan="6">Tidak ada review yang cocok dengan filter.</td></tr>';
+        return;
+      }
+
+      reviewTableBody.innerHTML = data.map((item) => `
+        <tr>
+          <td>RV-${String(item.id).padStart(3, "0")}</td>
+          <td>${item.book}</td>
+          <td>${item.reviewer}</td>
+          <td><span class="badge warning">${renderStars(item.rating)}</span></td>
+          <td>${item.review}</td>
+          <td>
+            <div class="actions">
+              <button class="btn btn-danger btn-delete" type="button" data-id="${item.id}">Hapus</button>
+            </div>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    function getFilteredData() {
+      const keyword = bookFilter.value.trim().toLowerCase();
+      if (!keyword) return reviewData;
+      return reviewData.filter((item) => item.book.toLowerCase().includes(keyword));
+    }
+
+    function applyFilter(event) {
+      if (event) event.preventDefault();
+      renderTable(getFilteredData());
+    }
+
+    filterForm.addEventListener("submit", applyFilter);
+    bookFilter.addEventListener("input", applyFilter);
+
+    resetFilter.addEventListener("click", () => {
+      bookFilter.value = "";
+      renderTable(reviewData);
+    });
+
+    reviewTableBody.addEventListener("click", (event) => {
+      const deleteBtn = event.target.closest(".btn-delete");
+      if (!deleteBtn) return;
+
+      const reviewId = Number(deleteBtn.dataset.id);
+      const reviewIndex = reviewData.findIndex((item) => item.id === reviewId);
+      if (reviewIndex === -1) return;
+
+      const selectedReview = reviewData[reviewIndex];
+      const confirmed = window.confirm(`Hapus review dari buku "${selectedReview.book}" oleh ${selectedReview.reviewer}?`);
+      if (!confirmed) return;
+
+      reviewData.splice(reviewIndex, 1);
+      renderTable(getFilteredData());
+    });
+
+    renderTable(reviewData);
+  </script>
+</body>
+</html>
