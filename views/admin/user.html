@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - User</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/admin/panel.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="brand"><img src="../../assets/pic/logo.png" alt="Logo" class="logo"><div><h1>BookStore</h1><p>Admin Panel</p></div></div>
+      <nav class="menu">
+        <a href="kategori-buku.html" class="menu-item"><i class="fa-solid fa-layer-group"></i> Kategori Buku</a>
+        <a href="buat-buku.html" class="menu-item"><i class="fa-solid fa-square-plus"></i> Buat Buku</a>
+        <a href="transaksi.html" class="menu-item"><i class="fa-solid fa-money-bill-transfer"></i> Transaksi</a>
+        <a href="report.html" class="menu-item"><i class="fa-solid fa-chart-line"></i> Report</a>
+        <a href="user.html" class="menu-item active"><i class="fa-solid fa-users"></i> User</a>
+      </nav>
+      <a href="../auth/auth.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><h2>User</h2><p>Kelola akun pengguna dan hak akses.</p></header>
+      <section class="panel">
+        <h3>Tambah User Admin/Staff</h3>
+        <form class="form-grid">
+          <div class="field"><label>Nama Lengkap</label><input type="text" placeholder="Masukkan nama"></div>
+          <div class="field"><label>Email</label><input type="email" placeholder="nama@email.com"></div>
+          <div class="field"><label>Role</label><select><option>Admin</option><option>Staff</option></select></div>
+          <div class="field"><label>Status</label><select><option>Aktif</option><option>Suspend</option></select></div>
+          <div class="field full"><label>Catatan</label><textarea placeholder="Catatan internal pengguna"></textarea></div>
+          <div class="field" style="justify-content:end;"><label>&nbsp;</label><button class="btn btn-primary" type="button">Simpan User</button></div>
+        </form>
+      </section>
+      <section class="panel table-wrap">
+        <table>
+          <thead><tr><th>Nama</th><th>Email</th><th>Role</th><th>Status</th><th>Aksi</th></tr></thead>
+          <tbody>
+            <tr><td>Admin Utama</td><td>admin@galaxybook.id</td><td>Admin</td><td><span class="badge success">Aktif</span></td><td><div class="actions"><button class="btn btn-soft" type="button">Edit</button></div></td></tr>
+            <tr><td>Dina Kurnia</td><td>dina@galaxybook.id</td><td>Staff</td><td><span class="badge success">Aktif</span></td><td><div class="actions"><button class="btn btn-soft" type="button">Edit</button></div></td></tr>
+            <tr><td>Rafi Maulana</td><td>rafi@galaxybook.id</td><td>Staff</td><td><span class="badge warning">Suspend</span></td><td><div class="actions"><button class="btn btn-soft" type="button">Edit</button></div></td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+    <script src="../../assets/script/admin/theme.js"></script>
+</body>
+</html>

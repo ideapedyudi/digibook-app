@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Kategori Buku</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../../assets/css/admin/panel.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <div class="brand"><img src="../../assets/pic/logo.png" alt="Logo" class="logo"><div><h1>BookStore</h1><p>Admin Panel</p></div></div>
+      <nav class="menu">
+        <a href="kategori-buku.html" class="menu-item active"><i class="fa-solid fa-layer-group"></i> Kategori Buku</a>
+        <a href="buat-buku.html" class="menu-item"><i class="fa-solid fa-square-plus"></i> Buat Buku</a>
+        <a href="transaksi.html" class="menu-item"><i class="fa-solid fa-money-bill-transfer"></i> Transaksi</a>
+        <a href="report.html" class="menu-item"><i class="fa-solid fa-chart-line"></i> Report</a>
+        <a href="user.html" class="menu-item"><i class="fa-solid fa-users"></i> User</a>
+      </nav>
+      <a href="../auth/auth.html" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </aside>
+    <main class="main-content">
+      <header class="topbar"><h2>Kategori Buku</h2><p>Tambah dan kelola kategori katalog buku.</p></header>
+      <section class="content-grid">
+        <article class="panel">
+          <h3>Form Kategori</h3>
+          <form class="form-grid">
+            <div class="field"><label>Nama Kategori</label><input type="text" value="Sastra Indonesia"></div>
+            <div class="field"><label>Slug</label><input type="text" value="sastra-indonesia"></div>
+            <div class="field full"><label>Deskripsi</label><textarea>Kumpulan buku sastra klasik dan kontemporer Indonesia.</textarea></div>
+            <div class="field"><label>Status</label><select><option>Aktif</option><option>Nonaktif</option></select></div>
+            <div class="field" style="justify-content:end;"><label>&nbsp;</label><button class="btn btn-primary" type="button">Simpan Kategori</button></div>
+          </form>
+        </article>
+        <article class="panel">
+          <h3>Data Kategori</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>ID</th><th>Nama</th><th>Jumlah Buku</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>KT-001</td><td>Sastra Indonesia</td><td>48</td><td><span class="badge success">Aktif</span></td></tr>
+                <tr><td>KT-002</td><td>Filsafat</td><td>21</td><td><span class="badge success">Aktif</span></td></tr>
+                <tr><td>KT-003</td><td>Sosiologi</td><td>17</td><td><span class="badge warning">Draft</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+    <script src="../../assets/script/admin/theme.js"></script>
+</body>
+</html>
