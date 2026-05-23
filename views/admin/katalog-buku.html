@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,52 +8,24 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../../assets/css/admin/panel.css">
 </head>
-
 <body>
   <div class="admin-layout">
-        <div id="admin-sidebar"></div>
+    <div id="admin-sidebar"></div>
     <main class="main-content">
       <header class="topbar">
         <h2>Katalog Buku</h2>
-        <p>Kelola list buku, tambah buku baru, dan edit data buku yang sudah ada.</p>
+        <p>Tambah, edit, dan hapus data katalog buku.</p>
       </header>
 
-      <section class="panel">
-        <h3>Form Buku (Tambah / Edit)</h3>
-        <p style="margin-bottom:14px;color:var(--text-muted);">Gunakan satu form ini untuk tambah buku baru atau edit
-          data buku yang sudah ada. Sample data terisi dari BK-004.</p>
-        <form class="form-grid">
-          <div class="field"><label>ID Buku</label><input type="text" value="BK-004"></div>
-          <div class="field"><label>Judul Buku</label><input type="text" value="Dilarang Mencintai Bunga-Bunga"></div>
-          <div class="field"><label>Penulis</label><input type="text" value="Kuntowijoyo"></div>
-          <div class="field"><label>Kategori</label><select>
-              <option>Sastra Indonesia</option>
-              <option>Sosiologi</option>
-              <option>Filsafat</option>
-            </select></div>
-          <div class="field"><label>Harga</label><input type="number" value="135000"></div>
-          <div class="field"><label>Stok</label><input type="number" value="18"></div>
-          <div class="field"><label>Tahun Terbit</label><input type="number" value="2017"></div>
-          <div class="field"><label>Status</label><select>
-              <option>Aktif</option>
-              <option>Draft</option>
-            </select></div>
-          <div class="field full">
-            <label>Deskripsi</label><textarea>Kumpulan cerpen reflektif dengan gaya bahasa puitis dan kritik sosial yang kuat.</textarea>
-          </div>
-          <div class="field full"><label>Cover (URL)</label><input type="text" value="../../assets/pic/b-4.png"></div>
-          <div class="field" style="justify-content:end;"><label>&nbsp;</label>
-            <div class="actions"><button class="btn btn-soft" type="button">Reset Form</button><button
-                class="btn btn-primary" type="button">Simpan Buku</button></div>
-          </div>
-        </form>
-      </section>
-
       <section class="panel table-wrap">
-        <h3>List Buku Katalog</h3>
-        <table>
+        <div class="actions" style="justify-content:space-between; margin-bottom:14px;">
+          <h3 style="margin:0;">List Buku Katalog</h3>
+          <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#createKatalogModal">Tambah Data</button>
+        </div>
+        <table id="katalogTable">
           <thead>
             <tr>
               <th>ID</th>
@@ -73,11 +44,14 @@
               <td>Makrifat Daun</td>
               <td>Kuntowijoyo</td>
               <td>Sosiologi</td>
-              <td>Rp 50.000</td>
+              <td>50000</td>
               <td>42</td>
               <td><span class="badge success">Aktif</span></td>
               <td>
-                <div class="actions"><button class="btn btn-soft" type="button">Edit</button></div>
+                <div class="actions">
+                  <button class="btn btn-soft edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#editKatalogModal">Edit</button>
+                  <button class="btn btn-danger delete-btn" type="button">Hapus</button>
+                </div>
               </td>
             </tr>
             <tr>
@@ -85,11 +59,14 @@
               <td>Perubahan Sosial Dalam Masyarakat</td>
               <td>Kuntowijoyo</td>
               <td>Sosiologi</td>
-              <td>Rp 200.000</td>
+              <td>200000</td>
               <td>34</td>
               <td><span class="badge success">Aktif</span></td>
               <td>
-                <div class="actions"><button class="btn btn-soft" type="button">Edit</button></div>
+                <div class="actions">
+                  <button class="btn btn-soft edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#editKatalogModal">Edit</button>
+                  <button class="btn btn-danger delete-btn" type="button">Hapus</button>
+                </div>
               </td>
             </tr>
             <tr>
@@ -97,11 +74,14 @@
               <td>Pulang</td>
               <td>Tere Liye</td>
               <td>Sastra Indonesia</td>
-              <td>Rp 98.000</td>
+              <td>98000</td>
               <td>27</td>
               <td><span class="badge success">Aktif</span></td>
               <td>
-                <div class="actions"><button class="btn btn-soft" type="button">Edit</button></div>
+                <div class="actions">
+                  <button class="btn btn-soft edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#editKatalogModal">Edit</button>
+                  <button class="btn btn-danger delete-btn" type="button">Hapus</button>
+                </div>
               </td>
             </tr>
             <tr>
@@ -109,23 +89,14 @@
               <td>Dilarang Mencintai Bunga-Bunga</td>
               <td>Kuntowijoyo</td>
               <td>Sastra Indonesia</td>
-              <td>Rp 135.000</td>
+              <td>135000</td>
               <td>18</td>
               <td><span class="badge success">Aktif</span></td>
               <td>
-                <div class="actions"><button class="btn btn-soft" type="button">Edit</button></div>
-              </td>
-            </tr>
-            <tr>
-              <td>BK-005</td>
-              <td>Pengantar Filsafat Modern</td>
-              <td>Franz Magnis</td>
-              <td>Filsafat</td>
-              <td>Rp 150.000</td>
-              <td>0</td>
-              <td><span class="badge warning">Draft</span></td>
-              <td>
-                <div class="actions"><button class="btn btn-soft" type="button">Edit</button></div>
+                <div class="actions">
+                  <button class="btn btn-soft edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#editKatalogModal">Edit</button>
+                  <button class="btn btn-danger delete-btn" type="button">Hapus</button>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -133,8 +104,126 @@
       </section>
     </main>
   </div>
+
+  <div class="modal fade" id="createKatalogModal" tabindex="-1" aria-labelledby="createKatalogModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createKatalogModalLabel">Tambah Buku</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form-grid">
+            <div class="field"><label>ID Buku</label><input type="text" id="createId" value="BK-005"></div>
+            <div class="field"><label>Judul Buku</label><input type="text" id="createJudul" value="Pengantar Filsafat Modern"></div>
+            <div class="field"><label>Penulis</label><input type="text" id="createPenulis" value="Franz Magnis"></div>
+            <div class="field"><label>Kategori</label><select id="createKategori"><option>Sastra Indonesia</option><option>Sosiologi</option><option selected>Filsafat</option></select></div>
+            <div class="field"><label>Harga</label><input type="number" id="createHarga" value="150000"></div>
+            <div class="field"><label>Stok</label><input type="number" id="createStok" value="10"></div>
+            <div class="field"><label>Status</label><select id="createStatus"><option selected>Aktif</option><option>Draft</option></select></div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-soft" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary" id="saveCreateKatalog">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editKatalogModal" tabindex="-1" aria-labelledby="editKatalogModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editKatalogModalLabel">Edit Buku</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form-grid">
+            <input type="hidden" id="editRowIndex">
+            <div class="field"><label>ID Buku</label><input type="text" id="editId"></div>
+            <div class="field"><label>Judul Buku</label><input type="text" id="editJudul"></div>
+            <div class="field"><label>Penulis</label><input type="text" id="editPenulis"></div>
+            <div class="field"><label>Kategori</label><select id="editKategori"><option>Sastra Indonesia</option><option>Sosiologi</option><option>Filsafat</option></select></div>
+            <div class="field"><label>Harga</label><input type="number" id="editHarga"></div>
+            <div class="field"><label>Stok</label><input type="number" id="editStok"></div>
+            <div class="field"><label>Status</label><select id="editStatus"><option>Aktif</option><option>Draft</option></select></div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-soft" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-primary" id="saveEditKatalog">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../../assets/script/admin/shared-layout.js"></script>
+  <script>
+    (function () {
+      const tableBody = document.querySelector("#katalogTable tbody");
+      const editModalElement = document.getElementById("editKatalogModal");
+      const editModal = new bootstrap.Modal(editModalElement);
+
+      function statusBadge(statusText) {
+        const cls = statusText === "Aktif" ? "success" : "warning";
+        return '<span class="badge ' + cls + '">' + statusText + "</span>";
+      }
+
+      function actionButtons() {
+        return '<div class="actions"><button class="btn btn-soft edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#editKatalogModal">Edit</button><button class="btn btn-danger delete-btn" type="button">Hapus</button></div>';
+      }
+
+      tableBody.addEventListener("click", function (event) {
+        const row = event.target.closest("tr");
+        if (!row) return;
+        if (event.target.classList.contains("delete-btn")) {
+          row.remove();
+          return;
+        }
+        if (event.target.classList.contains("edit-btn")) {
+          const cells = row.querySelectorAll("td");
+          document.getElementById("editRowIndex").value = Array.from(tableBody.children).indexOf(row);
+          document.getElementById("editId").value = cells[0].textContent.trim();
+          document.getElementById("editJudul").value = cells[1].textContent.trim();
+          document.getElementById("editPenulis").value = cells[2].textContent.trim();
+          document.getElementById("editKategori").value = cells[3].textContent.trim();
+          document.getElementById("editHarga").value = cells[4].textContent.trim();
+          document.getElementById("editStok").value = cells[5].textContent.trim();
+          document.getElementById("editStatus").value = cells[6].textContent.trim();
+        }
+      });
+
+      document.getElementById("saveCreateKatalog").addEventListener("click", function () {
+        const id = document.getElementById("createId").value.trim();
+        const judul = document.getElementById("createJudul").value.trim();
+        const penulis = document.getElementById("createPenulis").value.trim();
+        const kategori = document.getElementById("createKategori").value;
+        const harga = document.getElementById("createHarga").value.trim();
+        const stok = document.getElementById("createStok").value.trim();
+        const status = document.getElementById("createStatus").value;
+        if (!id || !judul || !penulis) return;
+        const row = document.createElement("tr");
+        row.innerHTML = "<td>" + id + "</td><td>" + judul + "</td><td>" + penulis + "</td><td>" + kategori + "</td><td>" + harga + "</td><td>" + stok + "</td><td>" + statusBadge(status) + "</td><td>" + actionButtons() + "</td>";
+        tableBody.appendChild(row);
+        bootstrap.Modal.getInstance(document.getElementById("createKatalogModal")).hide();
+      });
+
+      document.getElementById("saveEditKatalog").addEventListener("click", function () {
+        const rowIndex = parseInt(document.getElementById("editRowIndex").value, 10);
+        const row = tableBody.children[rowIndex];
+        if (!row) return;
+        row.children[0].textContent = document.getElementById("editId").value.trim();
+        row.children[1].textContent = document.getElementById("editJudul").value.trim();
+        row.children[2].textContent = document.getElementById("editPenulis").value.trim();
+        row.children[3].textContent = document.getElementById("editKategori").value;
+        row.children[4].textContent = document.getElementById("editHarga").value.trim();
+        row.children[5].textContent = document.getElementById("editStok").value.trim();
+        row.children[6].innerHTML = statusBadge(document.getElementById("editStatus").value);
+        editModal.hide();
+      });
+    })();
+  </script>
 </body>
-
 </html>
-

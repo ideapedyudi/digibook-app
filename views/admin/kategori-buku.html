@@ -8,41 +8,184 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../../assets/css/admin/panel.css">
 </head>
 <body>
   <div class="admin-layout">
-        <div id="admin-sidebar"></div>
+    <div id="admin-sidebar"></div>
     <main class="main-content">
-      <header class="topbar"><h2>Kategori Buku</h2><p>Tambah dan kelola kategori katalog buku.</p></header>
-      <section class="content-grid">
-        <article class="panel">
-          <h3>Form Kategori</h3>
-          <form class="form-grid">
-            <div class="field"><label>Nama Kategori</label><input type="text" value="Sastra Indonesia"></div>
-            <div class="field"><label>Slug</label><input type="text" value="sastra-indonesia"></div>
-            <div class="field full"><label>Deskripsi</label><textarea>Kumpulan buku sastra klasik dan kontemporer Indonesia.</textarea></div>
-            <div class="field"><label>Status</label><select><option>Aktif</option><option>Nonaktif</option></select></div>
-            <div class="field" style="justify-content:end;"><label>&nbsp;</label><button class="btn btn-primary" type="button">Simpan Kategori</button></div>
-          </form>
-        </article>
-        <article class="panel">
-          <h3>Data Kategori</h3>
-          <div class="table-wrap">
-            <table>
-              <thead><tr><th>ID</th><th>Nama</th><th>Jumlah Buku</th><th>Status</th></tr></thead>
-              <tbody>
-                <tr><td>KT-001</td><td>Sastra Indonesia</td><td>48</td><td><span class="badge success">Aktif</span></td></tr>
-                <tr><td>KT-002</td><td>Filsafat</td><td>21</td><td><span class="badge success">Aktif</span></td></tr>
-                <tr><td>KT-003</td><td>Sosiologi</td><td>17</td><td><span class="badge warning">Draft</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </article>
+      <header class="topbar">
+        <h2>Kategori Buku</h2>
+        <p>Tambah, edit, dan hapus kategori buku.</p>
+      </header>
+
+      <section class="panel table-wrap">
+        <div class="actions" style="justify-content:space-between; margin-bottom:14px;">
+          <h3 style="margin:0;">Data Kategori</h3>
+          <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#createKategoriModal">Tambah Data</button>
+        </div>
+        <table id="kategoriTable">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nama</th>
+              <th>Jumlah Buku</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>KT-001</td>
+              <td>Sastra Indonesia</td>
+              <td>48</td>
+              <td><span class="badge success">Aktif</span></td>
+              <td>
+                <div class="actions">
+                  <button class="btn btn-soft edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#editKategoriModal">Edit</button>
+                  <button class="btn btn-danger delete-btn" type="button">Hapus</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>KT-002</td>
+              <td>Filsafat</td>
+              <td>21</td>
+              <td><span class="badge success">Aktif</span></td>
+              <td>
+                <div class="actions">
+                  <button class="btn btn-soft edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#editKategoriModal">Edit</button>
+                  <button class="btn btn-danger delete-btn" type="button">Hapus</button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>KT-003</td>
+              <td>Sosiologi</td>
+              <td>17</td>
+              <td><span class="badge warning">Draft</span></td>
+              <td>
+                <div class="actions">
+                  <button class="btn btn-soft edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#editKategoriModal">Edit</button>
+                  <button class="btn btn-danger delete-btn" type="button">Hapus</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
     </main>
   </div>
+
+  <div class="modal fade" id="createKategoriModal" tabindex="-1" aria-labelledby="createKategoriModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createKategoriModalLabel">Tambah Kategori Buku</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form-grid" id="createKategoriForm">
+            <div class="field"><label>ID Kategori</label><input type="text" id="createKategoriId" value="KT-004"></div>
+            <div class="field"><label>Nama Kategori</label><input type="text" id="createKategoriNama" value="Psikologi Populer"></div>
+            <div class="field"><label>Jumlah Buku</label><input type="number" id="createKategoriJumlah" value="9"></div>
+            <div class="field"><label>Status</label><select id="createKategoriStatus"><option selected>Aktif</option><option>Draft</option></select></div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-soft" data-bs-dismiss="modal">Batal</button>
+          <button type="button" class="btn btn-primary" id="saveCreateKategori">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editKategoriModal" tabindex="-1" aria-labelledby="editKategoriModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editKategoriModalLabel">Edit Kategori Buku</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form class="form-grid" id="editKategoriForm">
+            <input type="hidden" id="editKategoriRowIndex">
+            <div class="field"><label>ID Kategori</label><input type="text" id="editKategoriId"></div>
+            <div class="field"><label>Nama Kategori</label><input type="text" id="editKategoriNama"></div>
+            <div class="field"><label>Jumlah Buku</label><input type="number" id="editKategoriJumlah"></div>
+            <div class="field"><label>Status</label><select id="editKategoriStatus"><option>Aktif</option><option>Draft</option></select></div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-soft" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-primary" id="saveEditKategori">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../../assets/script/admin/shared-layout.js"></script>
+  <script>
+    (function () {
+      const tableBody = document.querySelector("#kategoriTable tbody");
+      const editModalElement = document.getElementById("editKategoriModal");
+      const editModal = new bootstrap.Modal(editModalElement);
+
+      function statusBadge(statusText) {
+        const cls = statusText === "Aktif" ? "success" : "warning";
+        return '<span class="badge ' + cls + '">' + statusText + "</span>";
+      }
+
+      function createActionButtons() {
+        return '<div class="actions"><button class="btn btn-soft edit-btn" type="button" data-bs-toggle="modal" data-bs-target="#editKategoriModal">Edit</button><button class="btn btn-danger delete-btn" type="button">Hapus</button></div>';
+      }
+
+      tableBody.addEventListener("click", function (event) {
+        const row = event.target.closest("tr");
+        if (!row) return;
+        if (event.target.classList.contains("delete-btn")) {
+          row.remove();
+          return;
+        }
+        if (event.target.classList.contains("edit-btn")) {
+          const cells = row.querySelectorAll("td");
+          document.getElementById("editKategoriRowIndex").value = Array.from(tableBody.children).indexOf(row);
+          document.getElementById("editKategoriId").value = cells[0].textContent.trim();
+          document.getElementById("editKategoriNama").value = cells[1].textContent.trim();
+          document.getElementById("editKategoriJumlah").value = cells[2].textContent.trim();
+          document.getElementById("editKategoriStatus").value = cells[3].textContent.trim();
+        }
+      });
+
+      document.getElementById("saveCreateKategori").addEventListener("click", function () {
+        const id = document.getElementById("createKategoriId").value.trim();
+        const nama = document.getElementById("createKategoriNama").value.trim();
+        const jumlah = document.getElementById("createKategoriJumlah").value.trim();
+        const status = document.getElementById("createKategoriStatus").value;
+        if (!id || !nama || !jumlah) return;
+        const row = document.createElement("tr");
+        row.innerHTML = "<td>" + id + "</td><td>" + nama + "</td><td>" + jumlah + "</td><td>" + statusBadge(status) + "</td><td>" + createActionButtons() + "</td>";
+        tableBody.appendChild(row);
+        bootstrap.Modal.getInstance(document.getElementById("createKategoriModal")).hide();
+      });
+
+      document.getElementById("saveEditKategori").addEventListener("click", function () {
+        const rowIndex = parseInt(document.getElementById("editKategoriRowIndex").value, 10);
+        const row = tableBody.children[rowIndex];
+        if (!row) return;
+        const id = document.getElementById("editKategoriId").value.trim();
+        const nama = document.getElementById("editKategoriNama").value.trim();
+        const jumlah = document.getElementById("editKategoriJumlah").value.trim();
+        const status = document.getElementById("editKategoriStatus").value;
+        row.children[0].textContent = id;
+        row.children[1].textContent = nama;
+        row.children[2].textContent = jumlah;
+        row.children[3].innerHTML = statusBadge(status);
+        editModal.hide();
+      });
+    })();
+  </script>
 </body>
 </html>
-
